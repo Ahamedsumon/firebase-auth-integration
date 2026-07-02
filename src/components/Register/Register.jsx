@@ -1,23 +1,38 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router";
-import { auth } from "../../firebase/firebase.init";
+// import { auth } from "../../firebase/firebase.init";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
   const handleRegister = (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, email, password);
-    createUserWithEmailAndPassword(auth, email, password)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-    })
-    .catch(error => {
-      console.log(error.message);
-    })
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   const name = e.target.name.value;
+  //   const email = e.target.email.value;
+  //   const password = e.target.password.value;
+  //   console.log(name, email, password);
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //   .then(result => {
+  //     const user = result.user;
+  //     console.log(user);
+  //   })
+  //   .catch(error => {
+  //     console.log(error.message);
+  //   })
+  // };
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
       <div className="card-body">
